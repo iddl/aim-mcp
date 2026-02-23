@@ -1,18 +1,23 @@
-# aim-mcp
+# MCP server for Aim (Aimhubio/Aimstack)
 
-MCP server for [Aim](https://github.com/aimhubio/aim) experiment tracking. Exposes runs, params, and metric data to LLMs.
+MCP server for [Aim](https://github.com/aimhubio/aim).
+Exposes runs, params, and metric data to LLMs.
 
-I use this to ask the following questions
+I use this to ask the following questions:
 
-```
-> Analyze the latest aim metrics from the latest run and tell me how you think the changes are working out.
-
-```
+- _Analyze the latest Aim metrics from the most recent run and summarize how the changes appear to be working._
+- _Compare gradients between runs `6d6c3226...` and `e2ea06cc...`, focusing on AdaLN weight gradients, and explain the key takeaways._
+- _Review the latest run `c37d034b...` and interpret the `x`, `y`, and `z` metrics._
 
 ## Usage
 
-```bash
-python aim_mcp.py --repo /path/to/aim/repo
+```
+python aim_mcp.py --repo /path/to/aim/repo --transport sse --port 8000
 ```
 
-Point your MCP client at the server, then ask things like:
+## Warnings
+
+- Minimal work went into this, built over a weekend with Gemini doing most of the coding. However, the codebase is small
+- Aim appears to be marginally maintained
+- There are no tests
+- Best-effort help and support only
