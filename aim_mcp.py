@@ -8,6 +8,7 @@ repo = None
 
 @mcp.tool()
 def list_runs(tag: str = None) -> str:
+    """List all runs in the Aim repository, optionally filtered by tag."""
     res = []
     for r in repo.iter_runs():
         try:
@@ -22,6 +23,7 @@ def list_runs(tag: str = None) -> str:
 
 @mcp.tool()
 def get_run_details(run_hash: str) -> str:
+    """Get details for a specific run including its parameters and available metrics."""
     try:
         r = repo.get_run(run_hash)
         if not r:
@@ -34,6 +36,7 @@ def get_run_details(run_hash: str) -> str:
 
 @mcp.tool()
 def get_metric_data(run_hash: str, metrics: list[dict], n: int = 50) -> str:
+    """Get sampled metric data for a run. metrics is a list of {"name": str, "context": dict | None}."""
     # metrics: list of {"name": str, "context": dict | None}, e.g. [{"name": "loss"}, {"name": "learning_rate", "context": {"group": 1}}]
     try:
         r = repo.get_run(run_hash)
