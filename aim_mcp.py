@@ -7,18 +7,29 @@ repo = None
 
 
 @mcp.tool()
-def list_runs(tag: str = None) -> str:
-    """List all runs in the Aim repository, optionally filtered by tag."""
+def list_runs(tag: str = None, most_recent: bool = False) -> str:
+    """List runs in the Aim repository, optionally filtered by tag or reduced to the most recent match."""
     res = []
     for r in repo.iter_runs():
         try:
             tags = [getattr(t, "name", str(t)) for t in r.tags]
             if tag and tag not in tags:
                 continue
-            res.append(str({"hash": r.hash, "tags": tags, "experiment": r.experiment, "params": r[...]}))
-        except:
+            created_at = r.created_at if most_recent else None
+            res.append((r, tags, created_at))
+        except Exception:
             continue
-    return "\n".join(res) or "No runs found."
+
+    if not res:
+        return "No runs found."
+
+    if most_recent:
+        r, tags, _ = max(res, key=lambda item: item[2])
+        return str({"hash": r.hash, "tags": tags, "experiment": r.experiment, "params": r[...]})
+
+    return "\n".join(
+        str({"hash": r.hash, "tags": tags, "experiment": r.experiment, "params": r[...]}) for r, tags, _ in res
+    )
 
 
 @mcp.tool()

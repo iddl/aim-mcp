@@ -5,7 +5,7 @@ Exposes runs, params, and metric data to LLMs.
 
 I use this to ask the following questions:
 
-- _Analyze the latest Aim metrics from the most recent run and summarize how the changes appear to be working._
+- _Analyze the metrics from the most recent run tagged with 'flux' and summarize how the changes appear to be working._
 - _Compare gradients between runs `6d6c3226...` and `e2ea06cc...`, focusing on AdaLN weight gradients, and explain the key takeaways._
 - _Review the latest run `c37d034b...` and interpret the `x`, `y`, and `z` metrics._
 
